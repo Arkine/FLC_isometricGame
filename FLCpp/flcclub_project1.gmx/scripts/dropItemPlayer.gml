@@ -1,0 +1,4 @@
+/*
+    This allows the player to drop a selected item from the inventory
+    It should accept atleast one parameter for the item id number
+*/

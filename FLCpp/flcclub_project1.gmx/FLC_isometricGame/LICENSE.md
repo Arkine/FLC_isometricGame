@@ -1,0 +1,3 @@
+based on some EULA somewhere, you can branch, pull, fork, and otherwise download this code... 
+
+especially if it's for our FLC++ club
