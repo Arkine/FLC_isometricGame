@@ -1,1 +1,1 @@
-Adding a file called "Lance" that doesn't really do anything and is pointless to read.  :)
+Adding a file called "Lance" that doesn't really do anything and is pointless to read.  :)  Another pointless change.
