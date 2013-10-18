@@ -1,0 +1,3 @@
+/*
+    This checks if the object should be dead or not and removes them from the game
+*/

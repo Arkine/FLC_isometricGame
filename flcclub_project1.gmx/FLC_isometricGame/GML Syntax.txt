@@ -1,0 +1,259 @@
+GML Syntax and some useful functions
+Feel free to copy and paste code, it should all work.
+
+Table of contents:
+I. Declaring and Initialising Variables
+II. Logic
+III. Control Statements
+IV. Functions and Scripts
+V. Manipulating Instance Data
+VI. Useful Built-In Functions
+
+=====================================================================
+I. Declaring and initialising Variables:
+Global variables (NO DO NOT USE THESE, not yet atleast)
+
+globalvar variablename;
+variablename = somevalue;
+
+Object variable (only exists inside of the object which it was created in)
+
+variablename = somevalue;
+
+Local (Temporary) variable (only exists inside of the event which it was created in)
+
+var variablename;
+variablename = somevalue;
+
+***NOTE*** Semicolons are not necessary but you should practice using them as they are used in many languages at the end of lines
+	   Also, putting too many semicolons is bad. Only one at the end of a line is fine.
+
+=====================================================================
+II. Logic and Operators
+
+Symbol/Thing	Name			Description/syntax
+---------------------------------------------------------------------------------------------------------------------------
+1		true			true is usually 1, but it is also any number other than 0
+0		false			false is only the number 0
+&&		and			value && value		will only be true if both values are true
+||		or			value || value		will be true if either value is true
+==		is equal to			value == value		will only be true if both values are exactly the same
+!		not			!value  or !(value == value)	inverts the value or statement
+!=		not equal to		value != value		will only be true if the values are not exactly the same
+>		greater than		value > value		will only be true if the value on the left is bigger than the value on the right
+>=		greater than or equal to	value >= value		will only be true if the value on the left is bigger or exactly the same as the value on the right
+<		less than			value < value		will only be true if the value on the left is smaller than the value on the right
+<=		less than or equal to		value <= value		will only be true if the value on the left is smaller than or exactly the same as the value on the right
+
+=		set			variable = value		sets the value to the variable
++		add			value + value		adds two values together and returns the sum
+-		subtract			value - value 		subtracts the second from the first value and returns the difference
+*		multiply			value * value		multiplies the two values together and returns the sum
+/		divide			value / value		divides the first value by the second and returns the quoteint
+%		modulus			variable = value % value	returns the remainder of the first value divided by the second value
++= 		add to			variable += value		subtracts value from the variable
+-=		subtract from		variable -= value		adds the value to the variable
+*=		multiply by 		variable *= value		multiplies the variable by the value	
+/=		divide by			variable /= value		divides the variable by the value
+
+=====================================================================
+III. Control Statements
+
+if (somestatement)
+{
+	//code goes here
+}
+else if (someotherstatement) //not necessary
+{
+	//code goes here
+}
+else //also not necessary unless you want to catch some wierd unexpected values
+{
+	//code goes here
+}
+
+---------------------------------------------------------------------------------------------------------------------------
+
+switch (somestatement)
+{
+	case 0:	//since there is no break between case 0 and case 1, the code in both of them will be executed
+		//code goes here
+	case 1:
+		//code goes here
+	break;	//will end the switch statement on the first break command reached
+	case 2:
+		//code goes here
+	break;	//Do not put code between a break and case, this will make the linker/compiler unhappy
+	case 3:
+		//code goes here
+	case variable:
+	break;
+	default:	//will end the switch statement because it is the last branch
+		//code goes here
+}
+
+---------------------------------------------------------------------------------------------------------------------------
+//Pre-check loop (checks the statement before executing the code)
+for (i = start_value;i<value;i+=increment_value)
+{
+	//code goes here
+	//you can use any variable instead of i and any logic operator instead of < and any incrementing operator
+}
+
+---------------------------------------------------------------------------------------------------------------------------
+//Pre-check loop (checks the statement before executing the code)
+while (somestatement)
+{
+	//code goes here
+}
+
+---------------------------------------------------------------------------------------------------------------------------
+//Post-check loop (checks the statement after exectuing the code once)
+do {
+	//code goes here
+} until (somestatment) //Exits the loop when the statement returns true
+
+---------------------------------------------------------------------------------------------------------------------------
+
+repeat (value)	//This will execute the code inside a certain number of times
+{
+	//code goes here
+}
+
+=====================================================================
+IV. Functions and Scripts
+
+***NOTE*** These functions act as member functions of objects in object oriented programming
+When calling inside of code:
+A script would be code that does not return a value
+
+scriptName(parameter1, parameter2, parameter3) //As much as you want up to 16 parameters
+
+A function would be code that returns a value
+
+functionName(parameter1, parameter2, parameter3) //As much as you want up to 16 parameters
+
+When editing inside of the function/script
+
+argument0 //This is the first parameter passed to the function
+argument15 //This is the last parameter passed to the function
+
+return value; //This will cause the function to exit and return the value back to what ever called it
+//The first return statement will cause the function exit and all the code after it inside the function will not execute
+
+You can use object variables inside of functions and scripts without passing them implicity as parameters
+
+=====================================================================
+V. Manipulating Instance Data
+
+An instance is a clone of an Object inside of the game
+
+manipulating their data inside of other instances
+
+For example we have two instances: oPlayer and oEnemy
+
+	There are some built in "pointer" variables:
+
+	other //This is the pointer to the 'other' instance
+	self //This is the pointer to the instance who is executing the code
+
+Using the 'with' statement inside the oPlayer instance
+***oEnemy CAN BE replaced by the 'other' pointer inside certain events***
+with (oEnemy)
+{
+	hp -= self.damage;
+}
+
+Using a local variable as a pointer to an instance inside the oPlayer instance
+
+var variablename;
+
+variablename = oEnemy;
+variablename.hp -= damage;
+
+Using the object name to manipulate data inside the oPlayer instance
+
+oEnemy.hp -= damage; 
+
+Using the other pointer inside certain events inside the oPlayer instance
+***INSIDE COLLISION EVENT WITH oEnemy object***
+
+other.hp -= damage;
+
+=====================================================================
+VI. Useful Built-In Functions
+
+instance_create(x,y,obj); //This creates an instance of obj at position (x,y) also returns the id of that instance
+
+Cool Trick:
+
+var bullet;
+
+bullet = instance_create(x,y,oBullet); 
+bullet.damage = damage;
+bullet.direction = direction;
+
+//That creates a bullet object and assigns how much damage it should do and what direction it should be travelling at
+---------------------------------------------------------------------------------------------------------------------------
+
+instance_nearest(x,y,obj); //This finds the closest instance of obj to the (x,y) location and returns it's id
+instance_furthest(x,y,obj); //Works just like instance_neareset except finds the furthest one
+
+Cool Trick;
+
+var target;
+
+target = instance_nearest(x,y,oEnemy);
+
+target.hp -= damage;
+
+//That finds the closest instance of oEnemy and reduces its hp value by damage
+---------------------------------------------------------------------------------------------------------------------------
+
+point_direction(x1,y1,x2,y2); //Returns the direction in degrees from (x1,y1) to (x2,y2)
+
+Cool Trick;
+
+var target, bullet;
+
+target = instance_nearest(x,y,oEnemy);
+
+direction = point_direction(x,y,target.x,target.y);
+
+bullet = instance_create(x,y,oBullet);
+bullet.direction = direction;
+
+//That finds the closest enemy and shoots a bullet in the direction of the enemy
+---------------------------------------------------------------------------------------------------------------------------
+
+distance_to_object(obj); //returns the distance to an object in pixels; distance is from the edge of the calling instance's bounding box to the edge of obj's bounding box
+distance_to_point(x,y); //works like the above function except from the bounding box to a point
+Cool Trick
+
+var target;
+
+target = instance_nearest(x,y,oEnemy);
+
+if (distance_to_object(target) < 10)
+{
+	target.hp -= damage;
+}
+else
+{
+	//do nothing
+}
+
+//That finds the closest enemy and damages it if the enemy is less than 10 pixels away
+=====================================================================
+
+instance_destroy(); //This is the deconstructor for all instances, deletes them from the game. All variable values are lost, all actions are terminated
+
+Cool Trick;
+
+if (hp <= 0)
+{
+	instance_destroy();
+}
+
+//That removes the instance when its hp value is equal to or less than 0
+=====================================================================
